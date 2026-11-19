@@ -1,0 +1,59 @@
+# CasinoDX - Roulette
+#
+# European single-zero wheel: pockets 0-36, one green zero.
+#
+# The table works like a real one. The player picks a chip size, then clicks as
+# many cells as they like — each click puts one chip of that size on the cell and
+# clicking it again takes the chip back. Nothing is withdrawn while they do this:
+# the total (chip size x chips placed) is taken the moment they press SPIN, and a
+# player who walks away before spinning has paid nothing.
+#
+# The winning pocket is drawn server-side before the wheel starts turning. The
+# spin animation is built backwards from that pocket, so it always stops on the
+# number that was already chosen, and every chip is then settled independently
+# against that one pocket.
+
+enabled: true
+
+# Limits on the CHIP SIZE, not on the total. A player with 15 chips of 100 down
+# has 1500 at risk; what caps that is max-bets-per-round and their balance.
+minimum-bet: 10
+maximum-bet: 100000
+
+# How many separate chips one player may have on the felt at once.
+# Clamped to 10-37 (37 being one chip per pocket).
+max-bets-per-round: 15
+
+# Chip denominations offered on the table. The strip has room for 7; values
+# outside minimum-bet/maximum-bet are dropped.
+chip-presets: [10, 25, 50, 100, 250, 500, 1000]
+
+# How long the wheel turns, in ticks (20 ticks = 1 second). Clamped to 40-200.
+spin-duration-ticks: 90
+
+# Informational only. A single-zero wheel pays 36-for-1 on a 37-pocket
+# wheel, which is an inherent edge of 1 - 36/37 = 2.70% on every bet. Changing
+# this value does not change the odds; edit payouts.yml to do that.
+house-edge: 2.7
+
+# Text shown on the in-game "How To Play" screen. Delete the list to fall back
+# to the built-in wording. Keep lines under ~45 characters so they fit the lore.
+help:
+  - "Pick your chip size, then click cells."
+  - "Click numbers to add/remove bets —"
+  - "one chip goes down per cell."
+  - "Bet as many cells as you like."
+  - ""
+  - "TOTAL BET = chip size x chips placed,"
+  - "and it is only taken when you SPIN."
+  - "Leaving before the spin costs nothing."
+  - ""
+  - "Red/Black/Odd/Even/High/Low pay 1:1."
+  - "Dozens and columns pay 2:1."
+  - "A single number pays 35:1."
+  - "Zero (green) pays 35:1 on its own bet."
+  - ""
+  - "One spin settles every chip you placed."
+  - "The winning pocket is drawn before"
+  - "the wheel spins — the animation"
+  - "always replays that result."

@@ -1,0 +1,62 @@
+# CasinoDX - Crash
+#
+# A rocket climbs, the multiplier rises, and at some point it explodes. Cash out
+# before it does and you keep bet x multiplier; leave it a moment too long and
+# the stake is gone.
+#
+# The crash point is drawn ONCE when the round starts, from
+#
+#   crashPoint = floor( (1 - house-edge) / (1 - U) * 100 ) / 100,   U ~ Uniform[0,1)
+#
+# then clamped into the min/max window below. This is the standard provably-fair
+# crash distribution: the chance of surviving to a multiplier m is
+# (1 - house-edge) / m, so a 1% edge means a 2.00x cash-out succeeds about 49.5%
+# of the time and every target carries the same 1% expected loss.
+#
+# The animation only ticks the displayed multiplier towards that stored number.
+# A cash-out is honoured only if the multiplier it is claimed at is below the
+# drawn crash point, so lag or a cancelled animation cannot manufacture a win.
+
+enabled: true
+
+minimum-bet: 10
+maximum-bet: 100000
+
+# Lowest possible crash point. 1.0 means an instant crash is possible, which is
+# what the raw distribution produces; raising it removes those rounds and
+# therefore hands the difference back to the player.
+min-multiplier: 1.0
+
+# Highest possible crash point. Also caps the maximum payout: a 100x ceiling on
+# the maximum bet is the worst case the house can lose in one round.
+max-multiplier: 100.0
+
+# Server ticks per 0.01 multiplier step at the start of the flight; the climb
+# accelerates from there. Lower is faster. Clamped to 1-10.
+ticks-per-step: 2
+
+# Seconds of "3... 2... 1..." after the cockpit opens and before the rocket
+# moves, so the player can read their stake and the recent crash points instead
+# of arriving mid-climb. Clamped to 0-10; set 0 to launch instantly.
+#
+# Cashing out is impossible during the countdown, and because the player has had
+# no chance to collect, leaving or disconnecting before launch REFUNDS the stake.
+# Once the rocket lifts the old rule applies again: abandoning a flight counts as
+# riding it to the crash.
+countdown-seconds: 3
+
+# House edge used by the crash distribution above. This one is not cosmetic —
+# it is the numerator of the formula and directly sets the return to player
+# (1 - house-edge/100), so 1.0 means a 99% RTP.
+house-edge: 1.0
+
+# Text shown on the in-game "How To Play" screen. Delete the list to fall back
+# to the built-in wording. Keep lines under ~45 characters so they fit the lore.
+help:
+  - "The multiplier climbs from 1.00x."
+  - "Cash out before the rocket crashes"
+  - "and you keep stake x multiplier."
+  - ""
+  - "The crash point is drawn at launch."
+  - "Leaving mid-flight counts as a crash,"
+  - "so ride it out or cash out."

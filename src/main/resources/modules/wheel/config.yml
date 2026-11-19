@@ -1,0 +1,53 @@
+# CasinoDX - Wheel of Fortune
+#
+# One free spin per player per cooldown period, plus optional paid spins.
+#
+# The winning section is drawn server-side before the wheel starts turning: the
+# weights in rewards.yml are normalised and sampled once, and the animation is
+# built backwards from the result. The free-spin cooldown is stored in the
+# database (player_meta), so reconnecting or restarting the server will not
+# reset it.
+
+enabled: true
+
+# The wheel is not an amount-you-choose game, so these stay at 0 and the shared
+# bet screen is bypassed. Paid spins use paid-spin-cost below.
+minimum-bet: 0
+maximum-bet: 0
+
+# Free spin cooldown. 86400 = 24 hours. Set to 0 for unlimited free spins.
+# Players with casinodx.wheel.free bypass the cooldown entirely.
+spin-cooldown-seconds: 86400
+
+# Cost of an extra spin once the free one is used. Set to 0 to disable paid
+# spins. Paid spins use exactly the same weights as the free spin.
+paid-spin-cost: 1000
+
+# Base amount that a "multiplier" section multiplies when the spin was free and
+# there is therefore no stake to multiply. Paid spins multiply the spin cost.
+multiplier-base: 500
+
+# How long the wheel turns, in ticks (20 ticks = 1 second). Clamped to 40-240.
+spin-duration-ticks: 110
+
+# Announce sections flagged with "broadcast: true" to the whole server.
+broadcast-rare-rewards: true
+
+# Master switch for command rewards. Left OFF by default: command sections run
+# arbitrary console commands, so they should only be enabled once you have read
+# and trust every command in rewards.yml.
+allow-command-rewards: false
+
+# Informational only. The wheel's real return is whatever the weights and
+# rewards in rewards.yml add up to, not a single percentage.
+house-edge: 0.0
+
+# Text shown on the in-game "How To Play" screen. Delete the list to fall back
+# to the built-in wording. Keep lines under ~45 characters so they fit the lore.
+help:
+  - "One free spin per cooldown period,"
+  - "or pay to spin whenever you like."
+  - ""
+  - "Paid and free spins use the same wheel"
+  - "and the same odds. Every section's real"
+  - "chance is listed on the prize table."

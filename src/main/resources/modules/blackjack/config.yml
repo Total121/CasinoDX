@@ -1,0 +1,49 @@
+# CasinoDX - Blackjack
+#
+# Beat the dealer without going over 21. Hit, stand, double down and split are
+# all supported.
+#
+# The shoe is shuffled server-side when the round starts and both opening hands
+# are dealt immediately; the dealing animation only reveals cards that were
+# already drawn. The dealer's full hand is played out before the reveal
+# animation begins, for the same reason.
+
+enabled: true
+
+minimum-bet: 10
+maximum-bet: 100000
+
+# Number of 52-card decks in the shoe. Clamped to 1-8.
+# More decks slightly favour the house and make card counting impractical.
+decks: 6
+
+# Whether the dealer draws on a soft 17 (A+6). Hitting soft 17 is the Vegas
+# standard and adds roughly 0.2% to the house edge; standing is player-friendly.
+dealer-hits-soft-17: true
+
+# Allow doubling the wager on a two-card hand. The extra wager is withdrawn at
+# the moment of the double and is refunded in full if the round is interrupted.
+allow-double-down: true
+
+# Allow splitting a pair into two hands. One split per round.
+allow-split: true
+
+# Ticks between dealt cards during the opening deal. Clamped to 3-20.
+deal-interval-ticks: 7
+
+# Informational only. With the defaults above and basic strategy the house edge
+# is roughly 0.5%; it comes from the player busting before the dealer acts, not
+# from any adjustment applied by the plugin. Payouts live in payouts.yml.
+house-edge: 0.5
+
+# Text shown on the in-game "How To Play" screen. Delete the list to fall back
+# to the built-in wording. Keep lines under ~45 characters so they fit the lore.
+help:
+  - "Beat the dealer without going over 21."
+  - "Hit to draw, stand to hold."
+  - "Double down doubles your wager for"
+  - "exactly one more card."
+  - "Split a matching pair into two hands."
+  - ""
+  - "A natural blackjack pays extra;"
+  - "equal totals push and return the stake."

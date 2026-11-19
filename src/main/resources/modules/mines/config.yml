@@ -1,0 +1,41 @@
+# CasinoDX - Mines
+#
+# Reveal safe tiles one at a time; each reveal raises the multiplier. Cash out
+# at any point, or hit a mine and lose the stake.
+#
+# The mine layout is shuffled once, server-side, the moment the round starts and
+# is never touched again, so clicking faster or slower cannot change anything.
+
+enabled: true
+
+minimum-bet: 10
+maximum-bet: 100000
+
+# Board is grid-size x grid-size. Limited to 3-7 so the board, the info panel
+# and the buttons all fit inside a single 54-slot menu.
+grid-size: 5
+
+# Number of mines hidden in the board. Must leave at least one safe tile.
+# More mines means a steeper multiplier curve and a shorter round.
+mine-count: 3
+
+# House edge applied to the mathematically fair multiplier.
+#
+# The fair gross multiplier after k safe reveals on a board of n tiles with m
+# mines is the reciprocal of the probability of surviving those k picks:
+#
+#   fair(k) = C(n, k) / C(n - m, k)
+#
+# The paid multiplier is fair(k) * (1 - house-edge), so a 1% edge returns 99% of
+# the fair value at every step. The edge is in the payout, never in the board.
+house-edge: 1.0
+
+# Text shown on the in-game "How To Play" screen. Delete the list to fall back
+# to the built-in wording. Keep lines under ~45 characters so they fit the lore.
+help:
+  - "Pick a stake, then reveal tiles."
+  - "Every safe tile raises your multiplier."
+  - "Hit a mine and the round is over."
+  - "Cash out any time to bank the current"
+  - "multiplier — there is no obligation"
+  - "to clear the board."

@@ -1,0 +1,22 @@
+# CasinoDX - Blackjack payouts
+#
+# Multipliers are GROSS returns, stake included.
+#
+# blackjack: a two-card 21. The classic 3:2 payout is 2.5 gross
+#            (1.5 profit + 1 stake). Lowering this to 2.2 (6:5) or 2.0 (1:1)
+#            is the single biggest lever on the house edge — 6:5 adds about
+#            1.4% to it, so treat it as a deliberate choice.
+# win:       any other winning hand, paid at even money (2.0 gross).
+#
+# A push returns the stake and is handled in code, not here.
+#
+# "chance" is display-only and approximates a six-deck shoe with the dealer
+# hitting soft 17.
+
+blackjack:
+  multiplier: 2.5
+  chance: 4.8
+
+win:
+  multiplier: 2.0
+  chance: 42.0

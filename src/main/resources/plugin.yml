@@ -1,0 +1,79 @@
+name: CasinoDX
+version: ${project.version}
+main: com.dravorax.casinodx.CasinoDX
+api-version: '1.21'
+folia-supported: true
+author: DravoraX
+description: Premium Minecraft Casino System
+website: https://dravorax.com
+softdepend: [Vault, VaultUnlocked]
+# VaultUnlocked registers as Bukkit name "Vault". Soft-depending both names keeps load order
+# friendly for installs that advertise either label; economy detection uses Vault services.
+load: POSTWORLD
+
+# JDBC drivers are resolved by the server's library loader rather than shaded
+# into the jar, so the plugin stays small and cannot clash with another
+# plugin's copy of the same driver.
+libraries:
+  - org.xerial:sqlite-jdbc:3.45.3.0
+  - com.mysql:mysql-connector-j:9.2.0
+
+commands:
+  casino:
+    description: Open the CasinoDX casino menu
+    usage: /casino [<game>|stats|history|games|reload|help]
+    aliases: [casinodx, cdx]
+    permission: casinodx.use
+
+permissions:
+  casinodx.use:
+    description: Allows opening the casino
+    default: true
+  casinodx.play:
+    description: Allows playing casino games
+    default: true
+  casinodx.play.mines:
+    description: Play Mines
+    default: true
+  casinodx.play.roulette:
+    description: Play Roulette
+    default: true
+  casinodx.play.blackjack:
+    description: Play Blackjack
+    default: true
+  casinodx.play.coinflip:
+    description: Play Coinflip
+    default: true
+  casinodx.play.crash:
+    description: Play Crash
+    default: true
+  casinodx.play.wheel:
+    description: Play Wheel of Fortune
+    default: true
+  casinodx.play.slots:
+    description: Play Slots
+    default: true
+  casinodx.stats:
+    description: View personal statistics
+    default: true
+  casinodx.history:
+    description: View personal history
+    default: true
+  casinodx.tax.exempt:
+    description: Exempt from casino tax
+    default: false
+  casinodx.wheel.free:
+    description: Permission-based free wheel spins
+    default: false
+  casinodx.admin:
+    description: Admin commands (reload, etc.)
+    default: op
+  casinodx.admin.reload:
+    description: Reload CasinoDX configuration
+    default: op
+  casinodx.admin.stats:
+    description: View another player's casino statistics
+    default: op
+  casinodx.bypass.limits:
+    description: Bypass bet limits (admin)
+    default: false

@@ -1,0 +1,32 @@
+title: "&6&lCasinoDX"
+size: 54
+
+items:
+  mines:
+    slot: 10
+    material: TNT
+    name: "&cMines"
+  roulette:
+    slot: 12
+    material: REDSTONE
+    name: "&eRoulette"
+  blackjack:
+    slot: 14
+    material: BOOK
+    name: "&aBlackjack"
+  coinflip:
+    slot: 16
+    material: GOLD_INGOT
+    name: "&6Coinflip"
+  crash:
+    slot: 28
+    material: FIREWORK_ROCKET
+    name: "&bCrash"
+  wheel:
+    slot: 34
+    material: NETHER_STAR
+    name: "&dWheel of Fortune"
+  slots:
+    slot: 40
+    material: LEVER
+    name: "&6Slots"

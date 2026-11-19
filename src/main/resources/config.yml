@@ -1,0 +1,99 @@
+# =============================================================================
+# CasinoDX — main configuration
+# Author: DravoraX
+# =============================================================================
+#
+# This file holds plugin-wide switches. Per-game rules live in modules/<game>/;
+# chat text lives in modules/messages/messages.yml. Either layer can take a
+# feature offline without touching the other.
+
+# -----------------------------------------------------------------------------
+# Chat prefix
+# -----------------------------------------------------------------------------
+# Prepended to every player-facing message from MessageService.
+# Supports legacy colour codes (&6) and MiniMessage (<gold>).
+# When set here, this value overrides modules/messages/messages.yml prefix.
+#
+# Examples:
+#   prefix: "&6[CasinoDX] &r"
+#   prefix: "<gold>ᴄᴀѕɪɴᴏᴅx <dark_gray>» <gray>"
+prefix: "<gold>ᴄᴀѕɪɴᴏᴅx <dark_gray>» <gray>"
+
+# -----------------------------------------------------------------------------
+# Master switch
+# -----------------------------------------------------------------------------
+# When false the plugin loads but registers no commands, listeners, or games.
+# Useful for maintenance without removing the jar.
+enabled: true
+
+# -----------------------------------------------------------------------------
+# Debug logging
+# -----------------------------------------------------------------------------
+# When true, CasinoDX logs extra detail about economy calls, session lifecycle,
+# payout decisions, and configuration reloads. Leave false on production servers.
+debug: false
+
+# -----------------------------------------------------------------------------
+# Language (reserved)
+# -----------------------------------------------------------------------------
+# Future releases may ship alternate message bundles. For now, edit
+# modules/messages/messages.yml directly. This key is ignored but kept so
+# server owners can document their intended locale.
+language: en
+
+# --- Games -------------------------------------------------------------------
+# A game is playable only when enabled BOTH here and in its own module config.
+games:
+  mines:
+    enabled: true
+  roulette:
+    enabled: true
+  blackjack:
+    enabled: true
+  coinflip:
+    enabled: true
+  crash:
+    enabled: true
+  wheel:
+    enabled: true
+  slots:
+    enabled: true
+
+# --- Storage -----------------------------------------------------------------
+# Statistics, round history and the wheel's free-spin cooldown are persisted
+# here. All reads and writes happen off the main thread.
+storage:
+  # sqlite (zero setup, stored in plugins/CasinoDX/data/casinodx.db) or mysql
+  # (required if you share data across a network of servers).
+  type: sqlite
+
+  mysql:
+    host: 127.0.0.1
+    port: 3306
+    database: casinodx
+    username: root
+    password: ""
+    # Kept deliberately small; the plugin queues its queries rather than
+    # opening a connection per request. Clamped to 1-3.
+    pool-size: 2
+
+# --- Display defaults --------------------------------------------------------
+# Overridden by modules/economy/config.yml when that file provides a value.
+economy:
+  symbol: '$'
+  format: '#,##0.00'
+  default-balance: 0
+
+# Global bet limits. Individual games narrow these in their own module config;
+# a game's maximum-bet of 0 means "use the global maximum below".
+betting:
+  min: 10
+  max: 1000000
+
+# --- Tax (summary) -----------------------------------------------------------
+# Full tax control — percentage, profit vs gross, per-game overrides, caps —
+# lives in modules/tax/config.yml. The keys below are informational only and
+# are not read by the plugin; edit the tax module for real changes.
+tax:
+  enabled: true
+  rate: 0.15

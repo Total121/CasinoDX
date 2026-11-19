@@ -1,0 +1,13 @@
+# CasinoDX - Crash payouts
+#
+# Crash has no payout table: the payout is whatever multiplier the player cashed
+# out at, which is why there is nothing to configure here. The shape of the
+# distribution is controlled by min-multiplier, max-multiplier and house-edge in
+# config.yml.
+#
+# The entry below is display-only and exists so the module has a payout file in
+# the same place as every other game.
+
+cashout:
+  multiplier: 1.0
+  chance: 100

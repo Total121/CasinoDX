@@ -1,0 +1,12 @@
+provider: auto
+# auto          — prefer VaultUnlocked (vault2) when registered, else classic Vault
+# vaultunlocked — require vault2 Economy (VaultUnlockedAPI)
+# vault         — require classic Vault Economy only
+
+currency-symbol: "$"
+# Optional VaultUnlocked multi-currency id. Leave blank for the provider default.
+# Only used when provider resolves to VaultUnlocked / vault2.
+currency: ""
+decimal-places: 2
+minimum-bet: 10
+maximum-bet: 1000000

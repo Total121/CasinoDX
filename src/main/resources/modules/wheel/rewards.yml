@@ -1,0 +1,87 @@
+# CasinoDX - Wheel of Fortune sections
+#
+# Every top-level key is one section of the wheel, drawn in the order listed.
+#
+#   type          money | multiplier | items | command | nothing
+#   display-name  shown on the wheel, in chat and in the broadcast
+#   material      icon shown in the strip
+#   chance        RELATIVE weight, not a strict percentage. The plugin
+#                 normalises the whole set, so 70/25/5 and 7/2.5/0.5 give the
+#                 same wheel. Keeping them summing to 100 just makes the GUI
+#                 odds easier to eyeball.
+#   broadcast     announce this section server-wide when it is hit
+#
+# Per-type fields:
+#   money       -> money: <amount>
+#   multiplier  -> multiplier: <factor>   (of the spin cost, or of
+#                  multiplier-base when the spin was free)
+#   items       -> items: ["MATERIAL:amount", ...]
+#   command     -> commands: ["cmd {player}", ...]   (requires
+#                  allow-command-rewards: true in config.yml)
+#
+# Anything the player cannot be paid in cash — items and commands — is granted
+# on top and is not counted as a cash win in statistics.
+
+nothing:
+  type: nothing
+  display-name: "No Prize"
+  material: GRAY_DYE
+  chance: 20
+
+small-cash:
+  type: money
+  display-name: "Pocket Change"
+  material: IRON_NUGGET
+  money: 250
+  chance: 30
+
+medium-cash:
+  type: money
+  display-name: "Tidy Sum"
+  material: GOLD_NUGGET
+  money: 1000
+  chance: 20
+
+large-cash:
+  type: money
+  display-name: "Big Payday"
+  material: GOLD_INGOT
+  money: 5000
+  chance: 10
+
+multiplier-2x:
+  type: multiplier
+  display-name: "Double Up"
+  material: EXPERIENCE_BOTTLE
+  multiplier: 2.0
+  chance: 10
+
+supply-crate:
+  type: items
+  display-name: "Supply Crate"
+  material: CHEST
+  items:
+    - "DIAMOND:3"
+    - "GOLDEN_APPLE:2"
+    - "EXPERIENCE_BOTTLE:8"
+  chance: 7
+
+jackpot:
+  type: multiplier
+  display-name: "Jackpot"
+  material: NETHER_STAR
+  multiplier: 25.0
+  chance: 3
+  broadcast: true
+
+# Command section, kept disabled by the low weight and by
+# allow-command-rewards being false. Enable both before relying on it.
+#
+# vip-day:
+#   type: command
+#   display-name: "1 Day VIP"
+#   material: COMMAND_BLOCK
+#   commands:
+#     - "lp user {player} parent addtemp vip 1d"
+#   chance: 1
+#   broadcast: true

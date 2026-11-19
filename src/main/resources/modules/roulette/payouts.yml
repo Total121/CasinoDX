@@ -1,0 +1,46 @@
+# CasinoDX - Roulette payouts
+#
+# Multipliers are GROSS returns: the stake is already escrowed when the round
+# starts, so the number here includes it. A classic "35:1" straight-up bet is
+# therefore 36.0 (35 profit + 1 stake returned).
+#
+# "chance" is displayed in the GUI and is not used to decide anything; the
+# outcome always comes from a uniform draw over the 37 pockets.
+
+# One specific number. 1 pocket in 37.
+straight:
+  multiplier: 36.0
+  chance: 2.7
+
+# The green zero, paid at straight-up odds.
+green:
+  multiplier: 36.0
+  chance: 2.7
+
+# Even-money bets. 18 pockets in 37 each — zero beats all of them.
+red:
+  multiplier: 2.0
+  chance: 48.6
+black:
+  multiplier: 2.0
+  chance: 48.6
+odd:
+  multiplier: 2.0
+  chance: 48.6
+even:
+  multiplier: 2.0
+  chance: 48.6
+low:
+  multiplier: 2.0
+  chance: 48.6
+high:
+  multiplier: 2.0
+  chance: 48.6
+
+# Twelve numbers at a time, 2:1. 12 pockets in 37.
+dozen:
+  multiplier: 3.0
+  chance: 32.4
+column:
+  multiplier: 3.0
+  chance: 32.4

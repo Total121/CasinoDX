@@ -1,0 +1,35 @@
+rows: 6
+title: "&6&lCasinoDX"
+
+# What betting panels show to players (admins can hide limits if desired).
+display:
+  show-min-bet: true
+  show-max-bet: true
+  show-balance: true
+
+main-menu:
+  title: "&6&lCasinoDX"
+  size: 54
+  animation-border-reveal: true
+
+history:
+  title: "Game History"
+  size: 54
+
+stats:
+  title: "Your Statistics"
+  size: 54
+
+bet-select:
+  size: 54
+  step: 10
+  presets:
+    - 10
+    - 50
+    - 100
+    - 500
+    - 1000
+    - 5000
+
+bet-input:
+  timeout-seconds: 60

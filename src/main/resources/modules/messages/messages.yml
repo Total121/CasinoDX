@@ -1,0 +1,87 @@
+# CasinoDX - chat messages
+#
+# Supports legacy colour codes (&a) and hex (&#F1C40F).
+# Placeholders are written as {name}; unknown ones are left untouched and
+# missing keys fall back to the built-in defaults, so deleting a line is safe.
+#
+# Set a message to "" to silence it entirely.
+
+prefix: "&6[CasinoDX] &r"
+
+# --- Betting -----------------------------------------------------------------
+# {amount}
+bet-placed: "&aBet placed: &f{amount}"
+# {amount} = the configured minimum
+bet-too-low: "&cThe minimum bet is &f{amount}&c."
+# {amount} = the configured maximum
+bet-too-high: "&cThe maximum bet is &f{amount}&c."
+bet-invalid: "&cThat bet amount is not valid."
+insufficient-funds: "&cYou don't have enough money for that bet."
+no-economy: "&cNo economy provider is available. Bets are disabled."
+
+# --- Chat bet entry ----------------------------------------------------------
+# Sent when a menu asks for a typed amount. While the prompt is armed the next
+# chat line is captured instead of broadcast. Accepts 500, $1,500, 1.5k, 2M and
+# "all"; "cancel" aborts.
+# {game}, {amount} current bet, {min}, {max}, {seconds} until the prompt expires
+bet-input-prompt: "&eType a bet amount in chat for &f{game}&e, or type &fcancel&e. &7(current {amount}, min {min}, max {max}, {seconds}s)"
+bet-input-invalid: "&cThat is not a valid amount. Try something like &f500 &cor &f1.5k&c."
+bet-input-cancelled: "&7Bet entry cancelled."
+# {amount} = the configured minimum
+bet-input-too-low: "&cThe minimum bet is &f{amount}&c. Type another amount or &fcancel&c."
+# {amount} = the configured maximum
+bet-input-too-high: "&cThe maximum bet is &f{amount}&c. Type another amount or &fcancel&c."
+# {amount} requested, {balance} available
+bet-input-insufficient: "&cYou cannot afford &f{amount}&c — your balance is &f{balance}&c."
+
+# --- Roulette ----------------------------------------------------------------
+roulette-no-bets: "&cPlace at least one chip on the table before you spin."
+# {count} = max-bets-per-round from modules/roulette/config.yml
+roulette-board-full: "&cYou already have &f{count} &cchips on the table."
+
+# --- Replay ------------------------------------------------------------------
+replay-nothing-to-replay: "&7You have no finished round to replay yet."
+
+# --- Results -----------------------------------------------------------------
+# {amount} net payout, {multiplier}, {result} outcome label, {game}
+win: "&a&lWIN &7» &fYou won &a{amount} &7({multiplier})"
+# {amount} stake lost, {result}, {game}
+loss: "&c&lLOSS &7» &fYou lost &c{amount}&f."
+# {amount} stake returned, {result}, {game}
+push: "&e&lPUSH &7» &fYour bet of &f{amount} &fwas returned."
+# {amount} tax deducted from the payout
+tax-applied: "&7Tax deducted: &f{amount}"
+
+# --- Session handling --------------------------------------------------------
+game-disabled: "&cThat game is currently disabled."
+no-permission: "&cYou don't have permission to do that."
+already-in-game: "&cFinish your current game first."
+# {amount}, {reason} - sent when a round is interrupted before it was decided
+session-refunded: "&eYour bet of &f{amount} &ewas refunded ({reason})."
+payout-failed: "&cPayout failed — contact an administrator. Your bet was refunded."
+
+# --- Wheel of Fortune --------------------------------------------------------
+# {time} remaining until the next free spin
+wheel-cooldown: "&cYour free spin is not ready yet: &f{time}"
+# {reward} section name, {amount} cash value
+wheel-result: "&6&lWHEEL &7» &fYou landed on &e{reward}&f."
+# {reward}
+wheel-no-reward: "&7The wheel stopped on &f{reward}&7. Better luck next time."
+# {player}, {reward}, {amount} - only for sections flagged broadcast: true
+wheel-broadcast: "&6{player} &ewon &f{reward} &eon the Wheel of Fortune!"
+# {count} - delivered after reconnect when rewards were queued offline
+wheel-pending-delivered: "&aYour queued wheel rewards have been delivered (&f{count}&a)."
+
+# --- Commands ----------------------------------------------------------------
+players-only: "&cThis command can only be used in-game."
+unknown-command: "&cUnknown subcommand. Try &f/casino help&c."
+# {player}
+player-not-found: "&cNo such player: &f{player}"
+# {player}
+stats-header: "&6&lCasinoDX Statistics &7» &f{player}"
+# {page} rendered as "current/total"
+history-header: "&6&lCasinoDX History &7» &fpage {page}"
+history-empty: "&7No rounds recorded yet."
+reload-success: "&aCasinoDX configuration reloaded."
+reload-failed: "&cReload failed — check the console for details."
+reload-busy: "&cReload aborted: players are still in an active game."

@@ -1,0 +1,25 @@
+# CasinoDX - colour palette
+#
+# Text colours accept either a hex value ("#F1C40F") or a legacy code ("&e").
+# Hex requires a client on 1.16 or newer; legacy codes work everywhere.
+
+# Headings, titles and neutral highlights.
+primary: "#9B59B6"
+# Backdrops and subdued panel text.
+secondary: "#1A1A2E"
+# Call-to-action text: bets, multipliers, prize names.
+accent: "#F1C40F"
+# Wins, cash-outs, safe tiles.
+success: "#2ECC71"
+# Losses, mines, crashes.
+danger: "#E74C3C"
+# Cautions and "are you sure" hints.
+warning: "#F39C12"
+# Body text inside lore.
+neutral: "#BDC3C7"
+
+# Border materials used to frame the menus. Any stained glass pane works well;
+# anything non-pane will look out of place but is still accepted.
+border-primary: BLACK_STAINED_GLASS_PANE
+border-secondary: PURPLE_STAINED_GLASS_PANE
+border-accent: YELLOW_STAINED_GLASS_PANE

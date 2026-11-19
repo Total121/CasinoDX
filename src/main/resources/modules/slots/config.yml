@@ -1,0 +1,66 @@
+# CasinoDX - Slots
+#
+# Press SPIN once, three reels turn, and matching symbols pay. The reel strip,
+# the symbol weights and the multipliers all live in payouts.yml — this file is
+# only the machine itself.
+#
+# HOW A SPIN IS DECIDED
+# ---------------------
+# Every reel is an INDEPENDENT weighted draw from the symbol list. A symbol with
+# weight 30 out of a total weight of 100 lands on any one reel 30% of the time,
+# and the reels do not look at each other. All three stops are drawn the instant
+# the player clicks SPIN, before the animation is even created, so the reels you
+# watch are a replay of a decision the server already committed to. Lag, a
+# cancelled animation, or clicking at a "lucky moment" cannot change anything.
+#
+# There is no code path that tracks how much a player has won and quietly
+# tightens the reels. Each spin is independent of every spin before it.
+
+enabled: true
+
+minimum-bet: 10
+
+# IMPORTANT: your worst case in a single round is maximum-bet x the largest
+# multiplier in payouts.yml. With the shipped jackpot of 1000x, a maximum-bet of
+# 5000 means one lucky spin can pay out 5,000,000. Lower this (or lower the
+# jackpot multiplier) before raising it.
+maximum-bet: 5000
+
+# Number of reels. Three is the classic machine and the default; 4 and 5 are
+# supported and the reel windows re-centre themselves to match. Anything outside
+# 3-5 is clamped, because the windows have to fit inside one row of the menu.
+#
+# With more reels, "three-match" in payouts.yml means "all reels match" and
+# "two-match" means "all reels but one match".
+reels: 3
+
+# How long the reels turn, in ticks (20 ticks = 1 second). The reels lock from
+# left to right, so the last one stops at roughly this mark. Clamped to 20-200.
+spin-ticks: 60
+
+# Target house edge as a percentage, used ONLY when scale-to-house-edge below is
+# true. It is also what the "How To Play" screen compares the real edge against.
+house-edge: 5.0
+
+# When false (the default) the multipliers in payouts.yml are paid exactly as
+# written, and the real house edge is whatever those numbers and weights work
+# out to — the machine reports it on the Odds panel.
+#
+# When true, CasinoDX multiplies EVERY multiplier by a single factor so the
+# measured return to player lands on (100 - house-edge)%. Use this if you would
+# rather set a target than do the arithmetic; the shipped paytable already comes
+# out at about 94% RTP without it.
+scale-to-house-edge: false
+
+# Text shown on the in-game "How To Play" panel. Delete the list to fall back
+# to the built-in wording. Keep lines under ~45 characters so they fit the lore.
+help:
+  - "Press SPIN once per round."
+  - "Each reel stops on its own symbol."
+  - ""
+  - "All reels matching pays the big"
+  - "multiplier; one short pays less,"
+  - "and only for symbols that say so."
+  - ""
+  - "Rarer symbols pay more because"
+  - "they sit on the reels less often."

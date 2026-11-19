@@ -1,0 +1,27 @@
+# CasinoDX - Coinflip payouts
+#
+# Multipliers are GROSS returns, stake included.
+#
+# With a fair coin the win chance is exactly 50%, so the house edge follows
+# directly from the multiplier:
+#
+#   edge = 1 - 0.5 * multiplier
+#
+#   2.00  ->  0% edge   (break-even for the house; not recommended long term)
+#   1.96  ->  2% edge
+#   1.92  ->  4% edge   (default)
+#   1.90  ->  5% edge
+#   1.80  -> 10% edge
+#
+# Heads and tails should carry the same multiplier. If they differ, the plugin
+# uses the lower of the two and logs a warning, because an asymmetric payout on
+# a symmetric coin is almost always a typo.
+#
+# "chance" is display-only: the coin is always a true 50/50.
+
+heads:
+  multiplier: 1.92
+  chance: 50
+tails:
+  multiplier: 1.92
+  chance: 50

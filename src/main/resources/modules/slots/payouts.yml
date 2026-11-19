@@ -1,0 +1,125 @@
+# CasinoDX - Slots reel strip and paytable
+#
+# This one file defines both what is on the reels and what it pays.
+#
+# Each entry under "symbols" needs:
+#   material      any item material, shown in the reel window
+#   display-name  the name the player reads
+#   weight        how OFTEN it lands (relative, not a percentage)
+#   three-match   GROSS multiplier when every reel shows it (stake included)
+#   two-match     optional GROSS multiplier when all reels but one show it;
+#                 leave it out (or set 0) and near misses pay nothing
+#
+# Multipliers are GROSS: the stake was already taken when the round started, so
+# 7.0 means "you get 7x your bet back", i.e. 6x profit.
+#
+#
+# HOW THE WEIGHTS BECOME ODDS
+# ---------------------------
+# Weights are relative. The defaults below add up to 100, which makes them read
+# as percentages, but they do not have to — 3/2/1 behaves the same as 30/20/10.
+#
+# For a symbol s with weight w_s and a total weight W:
+#
+#   p_s = w_s / W                        chance of s on ONE reel
+#
+# The reels are independent, so on a 3-reel machine:
+#
+#   P(all three show s)     = p_s^3
+#   P(exactly two show s)   = 3 * p_s^2 * (1 - p_s)
+#
+# and the return to player is what those events pay:
+#
+#   RTP = SUM over s of [ p_s^3 * three-match + 3 * p_s^2 * (1-p_s) * two-match ]
+#   house edge = 1 - RTP
+#
+# (On a 4- or 5-reel machine the exponents follow the reel count: p_s^n for a
+# full match and n * p_s^(n-1) * (1-p_s) for one short of it.)
+#
+# The machine's Odds panel shows the live result of that sum, so you can edit
+# these numbers, run /casino reload, and read the new RTP straight off the GUI
+# instead of trusting the comment below.
+#
+#
+# THE SHIPPED DEFAULTS, WORKED OUT
+# --------------------------------
+# Total weight = 100, so p is the weight as a percentage.
+#
+#   symbol    p      p^3        three-match   contribution
+#   coal      0.30   0.027000   7             0.1890
+#   apple     0.25   0.015625   12            0.1875
+#   gold      0.20   0.008000   22            0.1760
+#   emerald   0.13   0.002197   58            0.1274
+#   diamond   0.08   0.000512   210           0.1075
+#   star      0.04   0.000064   1000          0.0640
+#                                             ------
+#                               three-of-a-kind total  0.8514
+#
+#   star, exactly two: 3 * 0.04^2 * 0.96 = 0.004608, paid at 20   0.0922
+#                                                                 ------
+#                                                     RTP  ~= 0.9436
+#
+# So the machine returns about 94.4% and the house edge is about 5.6%. Any win
+# lands on roughly 5.8% of spins (5.34% three of a kind + 0.46% two stars),
+# which is normal for slots: rare hits, big multipliers.
+#
+#
+# TUNING IT
+# ---------
+#   * Raise a weight to make a symbol more common. Because a full match goes as
+#     p^3, small weight changes move the odds a LOT — doubling a weight makes
+#     that symbol's jackpot roughly eight times more likely.
+#   * Raise a multiplier to pay more for the same odds. This is the safe knob:
+#     it changes RTP linearly and predictably.
+#   * Removing a symbol makes every other symbol more common, because W shrinks.
+#   * Keep at least two symbols, or the machine falls back to its built-in strip.
+#   * Give two-match only to a rare symbol. On a common one it pays constantly
+#     and will push the RTP over 100%, which means the house loses money.
+#
+# Prefer not to do the maths at all? Set scale-to-house-edge: true in config.yml
+# and CasinoDX will scale this whole table to hit your target edge for you.
+
+symbols:
+
+  # --- Common, low pay ------------------------------------------------------
+  coal:
+    material: COAL
+    display-name: "Coal"
+    weight: 30
+    three-match: 7.0
+
+  apple:
+    material: APPLE
+    display-name: "Apple"
+    weight: 25
+    three-match: 12.0
+
+  # --- Middle of the strip --------------------------------------------------
+  gold:
+    material: GOLD_INGOT
+    display-name: "Gold"
+    weight: 20
+    three-match: 22.0
+
+  emerald:
+    material: EMERALD
+    display-name: "Emerald"
+    weight: 13
+    three-match: 58.0
+
+  # --- Rare, high pay -------------------------------------------------------
+  diamond:
+    material: DIAMOND
+    display-name: "Diamond"
+    weight: 8
+    three-match: 210.0
+
+  # The jackpot symbol, and the only one that pays a near miss. Two stars alone
+  # are worth about 9 percentage points of the total RTP, so change 'two-match'
+  # here before anything else if you need to move the edge.
+  star:
+    material: NETHER_STAR
+    display-name: "Star"
+    weight: 4
+    three-match: 1000.0
+    two-match: 20.0

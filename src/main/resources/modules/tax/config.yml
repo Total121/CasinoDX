@@ -1,0 +1,51 @@
+# =============================================================================
+# CasinoDX — winnings tax
+# =============================================================================
+#
+# Tax is deducted from the player's payout when they win. It never charges on
+# losses or pushes. Players with casinodx.tax.exempt skip tax entirely.
+
+# Turn the whole system on or off. When false, every payout is paid in full.
+enabled: true
+
+# Tax rate in percent. 15.0 means 15%.
+percentage: 15.0
+
+# What to tax:
+#   profit — only the amount above the original bet (recommended for casinos)
+#   gross  — the entire payout including the returned stake
+apply-to: profit
+
+# No tax is charged until the taxable base reaches this amount.
+# Example: with minimum-taxable: 50, a $40 profit round pays no tax.
+minimum-taxable: 0
+
+# Hard cap on tax per round. 0 = unlimited.
+maximum-tax: 0
+
+# -----------------------------------------------------------------------------
+# Beginner example — 15% tax on profit
+# -----------------------------------------------------------------------------
+# A player bets $1,000 and cashes out for $2,000 gross.
+#
+#   profit  = $2,000 - $1,000 = $1,000
+#   tax     = 15% of $1,000   = $150
+#   net     = $2,000 - $150    = $1,850  (what the player receives)
+#
+# With apply-to: gross instead, the same round would tax 15% of $2,000 = $300,
+# leaving $1,700 net. Profit mode is usually fairer because the stake is not
+# taxed twice.
+#
+# A losing round (gross < bet) never pays tax in profit mode because there is
+# no positive profit to tax.
+
+# --- Per-game overrides ------------------------------------------------------
+# Omit a game to inherit the global percentage and apply-to above.
+# Set percentage: 0 to disable tax for that game only.
+per-game:
+  crash:
+    percentage: 7.5
+    apply-to: profit
+  wheel:
+    percentage: 0
+    apply-to: gross

@@ -1,0 +1,24 @@
+# CasinoDX - Mines multiplier overrides
+#
+# Mines multipliers are normally computed from combinatorial probability (see the
+# house-edge comment in config.yml), which keeps them correct automatically when
+# grid-size or mine-count changes.
+#
+# Anything listed under "multipliers" replaces the computed value for that number
+# of safe reveals. The key is the reveal count, the value is the GROSS multiplier
+# (stake included), so 2.0 means "double your money".
+#
+# Leave it empty to use the fair computed curve. Overrides are only sensible if
+# you also pin grid-size and mine-count, since a hand-written curve will not
+# follow a board-size change.
+#
+# Example for the default 5x5 board with 3 mines:
+#
+# multipliers:
+#   1: 1.13
+#   2: 1.29
+#   3: 1.49
+#   4: 1.73
+#   5: 2.02
+
+multipliers: {}

@@ -1,0 +1,32 @@
+# CasinoDX - Coinflip
+#
+# Call heads or tails on a single toss.
+#
+# The coin itself is genuinely fair: the result is a uniform draw over two
+# outcomes from a SecureRandom, drawn before the animation starts. The house
+# edge lives entirely in the payout multiplier (see payouts.yml), never in the
+# coin. That is deliberate — a biased coin would be indistinguishable from a
+# rigged one from the player's side, whereas a published multiplier is honest
+# and verifiable.
+
+enabled: true
+
+minimum-bet: 10
+maximum-bet: 100000
+
+# How long the coin spins, in ticks (20 ticks = 1 second). Clamped to 20-120.
+flip-duration-ticks: 50
+
+# Fallback edge, used only when payouts.yml has no usable multiplier.
+# The derived multiplier is 2.0 * (1 - house-edge/100).
+house-edge: 4.0
+
+# Text shown on the in-game "How To Play" screen. Delete the list to fall back
+# to the built-in wording. Keep lines under ~45 characters so they fit the lore.
+help:
+  - "Call heads or tails, then toss."
+  - "The coin is a true 50/50 draw —"
+  - "it does not know what you called."
+  - ""
+  - "The house edge lives entirely in the"
+  - "payout multiplier, never in the coin."
